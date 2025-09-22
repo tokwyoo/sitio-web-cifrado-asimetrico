@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Encriptador Asimétrico</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <h1>Encriptador Asimétrico</h1>
+
+    <div class="container">
+        <div class="info-box">
+            <strong>⚠️ Información importante:</strong> Este sistema utiliza cifrado asimétrico RSA.
+            La llave pública se utiliza para encriptar y la llave privada para desencriptar.
+            Nunca compartas tu llave privada.
+        </div>
+
+        <div class="tabs">
+            <button class="tab active" data-tab="generate">Generar Llaves</button>
+            <button class="tab" data-tab="encrypt">Encriptar</button>
+            <button class="tab" data-tab="decrypt">Desencriptar</button>
+        </div>
+
+        <!-- Panel Generar Llaves -->
+        <div id="generate" class="tab-content active">
+            <p>Genera un par de llaves (pública y privada) para comenzar a encriptar y desencriptar mensajes.</p>
+
+            <button type="button" class="generate" onclick="generateKeyPair()">Generar Par de Llaves</button>
+
+            <div id="keyResult" class="result" style="display: none;">
+                <div class="result-row">
+                    <div class="result-col">
+                        <label>Llave Pública (compartir):</label>
+                        <div id="publicKey" class="result-text"></div>
+                        <button class="copy-btn" type="button" onclick="copyText('publicKey')">Copiar</button>
+                    </div>
+                    <div class="result-col">
+                        <label>Llave Privada (GUARDAR SEGURO):</label>
+                        <div id="privateKey" class="result-text private-key"></div>
+                        <button class="copy-btn" type="button" onclick="copyText('privateKey')">Copiar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Panel Encriptar -->
+        <div id="encrypt" class="tab-content">
+            <label for="publicKeyToUse">Llave Pública del Destinatario:</label>
+            <textarea id="publicKeyToUse" placeholder="Pega la llave pública aquí..." rows="4"></textarea>
+
+            <label for="textToEncrypt">Texto a encriptar:</label>
+            <textarea id="textToEncrypt" placeholder="Escribe el texto aquí..."></textarea>
+
+            <button type="button" onclick="encryptText()">Encriptar</button>
+
+            <div id="encryptResult" class="result" style="display: none;">
+                <div class="result-row">
+                    <div class="result-col">
+                        <label>Texto cifrado:</label>
+                        <div id="encryptedText" class="result-text"></div>
+                        <button class="copy-btn" type="button" onclick="copyText('encryptedText')">Copiar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Panel Desencriptar -->
+        <div id="decrypt" class="tab-content">
+            <label for="privateKeyToUse">Tu Llave Privada:</label>
+            <textarea id="privateKeyToUse" placeholder="Pega tu llave privada aquí..." rows="6"></textarea>
+
+            <label for="textToDecrypt">Texto cifrado:</label>
+            <textarea id="textToDecrypt" placeholder="Pega el texto cifrado aquí..."></textarea>
+
+            <button type="button" onclick="decryptText()">Desencriptar</button>
+
+            <div id="decryptResult" class="result" style="display: none;">
+                <label>Texto desencriptado:</label>
+                <div id="decryptedText" class="result-text"></div>
+                <button class="copy-btn" type="button" onclick="copyText('decryptedText')">Copiar</button>
+            </div>
+        </div>
+
+        <!-- Mensajes -->
+        <div id="message" class="alert" style="display: none;"></div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jsencrypt/3.2.1/jsencrypt.min.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
